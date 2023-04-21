@@ -1,29 +1,44 @@
-let textAreas = document.querySelectorAll('textarea');
-let mainArea = document.querySelector('.main-area');
-let currentPlayerName = '';
- let direction = ['start','end'];
- let flexBool = true;
+//VIEWS
+let usersView = document.querySelector('#users-view');
+let newRentView = document.querySelector('#add-rent-view')
+let usersTbody = usersView.querySelector('tbody');
 
-textAreas.forEach(area => area.addEventListener('keyup',placeMessage));
+//BUTTONS
+let usersTableBtn = document.querySelector('#users-view-btn');
+let newRentBtn = document.querySelector('#new-rent-view-btn');
 
-function placeMessage(e){
-if (e.key === "Enter") {
-    let message = this.value;
-    let playerName = this.id.split('-')[0];
-    if (playerName !== currentPlayerName) {
-        flexBool = !flexBool;
-        currentPlayerName = playerName
-    }
+//Listeners
+usersTableBtn.addEventListener('click',displayUsersView);
+newRentBtn.addEventListener('click',displayNewRentView);
 
-    mainArea.innerHTML += `
-    <div class="row" style = "justify-content: ${direction[+flexBool]}">
-        <div class="card">
-        <p id="move">${playerName}</p>
-        <p>${message}</p>
-        </div>
-    </div>
-    `.trim();
-    mainArea.scrollTop = mainArea.scrollHeight;
-    this.value = "";
+function displayUsersView(e){
+    e.preventDefault();
+    newRentView.style.display = "none";
+    usersView.style.display = "block"
 }
+
+function displayNewRentView(e){
+    e.preventDefault();
+    usersView.style.display = "none";
+    newRentView.style.display = "block"; 
+}
+
+
+createUsersTable();
+//this function create body on users table, 
+function createUsersTable(){
+    let text = ``;
+    db.forEach(user =>{
+        text+= `
+        <tr>
+            <td>${user.id}</td>
+            <td>${user.user}</td>
+            <td>${user.phone}</td>
+            <td>${user.provider}</td>
+            <td>${user.startDate}</td>
+            <td>${user.endDate}</td>
+        </tr>
+        `.trim();
+    })
+    usersTbody.innerHTML = text;
 }
