@@ -27,6 +27,9 @@
             <li class="nav-item">
               <a id="new-rent-view-btn" class="nav-link" href="#">New Rent</a>
             </li>
+            <li class="nav-item">
+                <a id="edit-delete-btn" class="nav-link" href="#">Edit/Delete</a>
+              </li>
           </ul>
           <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -66,10 +69,10 @@
                 <h4 class="display-4">New Rent</h4>
                 <div class="row">
                     <div class="col-10 offset-1">
-                        <input type="text" id="id" class="form-control" placeholder="id"><br>
+                        <!-- <input type="text" id="id" class="form-control" placeholder="id"><br> -->
                         <input type="text" id="user" class="form-control" placeholder="full name"><br>
-                        <input type="text" id="phone" class="form-control" placeholder="phone"><br>
-                        <input type="text" id="provider" class="form-control" placeholder="provider"><br>
+                        <select name="phone" id="phone-select" class="form-control"></select><br>
+                        <select name="provider" id="provider-select" class="form-control"></select><br>
                         <label for="startDate">StartDate</label>
                         <input type="date" id="startDate" class="form-control"><br>
                         <label for="endDate">End date</label>
@@ -80,6 +83,51 @@
             </div>
         </div>
         <!--END Add-Rent-View-->
+        <!--START Edit-Delete-View-->
+        <div id="edit-delete-view" class="views row">
+            <div class="col-10 offset-1">
+                <h4 class="display-4">Edit/Delete View</h4>
+                <div class="row">
+                    <div class="col-10 offset-1">
+                        <table class="table">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>Id</th>
+                                    <th>User</th>
+                                    <th>Phone</th>
+                                    <th>Provider</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div> 
+            </div>
+        </div>
+        <!--END Edit-Delete-View-->
+        <!--START Edit-View-->
+        <div id="edit-rent-view" class="views row">
+            <div class="col-10 offset-1">
+                <h4 class="display-4">Edit Rent</h4>
+                <div class="row">
+                    <div class="col-10 offset-1">
+                        <input type="text" id="eid" class="form-control" placeholder="id"><br>
+                        <input type="text" id="euser" class="form-control" placeholder="full name"><br>
+                        <select name="phone" id="ephone-select" class="form-control"></select><br>
+                        <select name="provider" id="eprovider-select" class="form-control"></select><br>
+                        <label for="startDate">StartDate</label>
+                        <input type="date" id="estartDate" class="form-control"><br>
+                        <label for="endDate">End date</label>
+                        <input type="date" id="eendDate" class="form-control"><br>
+                        <button id="esaveBtn" class="btn btn-outline-info form-control">Edit</button>
+                    </div>
+                </div> 
+            </div>
+        </div>
+        <!--END Edit-View-->
     </div>
     <script src="dataBases.js"></script>
     <script src="main.js"></script>
