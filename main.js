@@ -1,3 +1,7 @@
+window.addEventListener('beforeunload',save);
+function save(){
+    localStorage.db = JSON.stringify(db);
+}
 //VIEWS
 let usersView = document.querySelector('#users-view');
 let newRentView = document.querySelector('#add-rent-view')
@@ -13,6 +17,7 @@ let inputId = document.querySelector('#id');
 let inputUser = document.querySelector('#user');
 let inputStartDate = document.querySelector('#startDate');
 let inputEndDate = document.querySelector('#endDate');
+let searchField = document.querySelector('[type="search"]')
 
 let ephoneSelect = document.querySelector('#ephone-select');
 let eproviderSelect = document.querySelector('#eprovider-select');
@@ -35,6 +40,19 @@ newRentBtn.addEventListener('click',displayNewRentView);
 saveBtn.addEventListener('click',saveNewRent);
 editDeleteBtn.addEventListener('click',displayEditDeleteView);
 esaveBtn.addEventListener('click',editRentAccount);
+searchField.addEventListener('input',getSearchTerm);
+
+//search input, main thing is to find who is in charge for user display
+function getSearchTerm(){
+    let term = this.value; 
+    //We never use main db, insteed u copy
+    let currentDb = db.filter(el => {
+        return el.user.indexOf(term) !== -1 ||
+               el.phone.indexOf(term) !== -1 ||
+               el.provider.indexOf(term) !== -1
+    })
+    createUsersTable(currentDb)
+}
 
 function editRentAccount(){
     let id = this.getAttribute('data-id');
@@ -61,7 +79,7 @@ function generateId(){
         }
        })
    }
-   return rand.toString(); //whitout this toString() dont work
+   return rand.toString(); //whithout this toString() does not work
 }
 
 //Pick value from user and create table dinamic
@@ -218,11 +236,14 @@ function createEditProviderOptions(currentProvider){
 }
 
 
-createUsersTable();
+createUsersTable(db);
 //this function create body on users table, 
-function createUsersTable(){
+function createUsersTable(currentDb){
+    if (!currentDb) { //Bez ove pitalice mi izbacuje gresku kad sam namestio search dugme,jer sam zamenio currentDb a bilo je db
+        currentDb = db;
+    }
     let text = ``;
-    db.forEach(user =>{
+        currentDb.forEach(user =>{
         text+= `
         <tr>
             <td>${user.id}</td>
